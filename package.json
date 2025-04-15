@@ -1,0 +1,39 @@
+{
+  "name": "web-app",
+  "version": "1.0.0",
+  "description": "E-Commerce",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NISANCI-SOFTWARE/web-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NISANCI-SOFTWARE/web-app/issues"
+  },
+  "homepage": "https://github.com/NISANCI-SOFTWARE/web-app#readme",
+  "dependencies": {
+    "bootstrap": "^5.2.3",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "fa-icons": "^0.2.0",
+    "font-awesome": "^4.7.0",
+    "font-awesome-icons": "^1.6.0",
+    "http": "^0.0.1-security",
+    "iyzipay": "^2.0.48",
+    "js-sha256": "^0.9.0",
+    "mysql": "^2.18.1",
+    "netgsm": "^1.1.0",
+    "pg": "^8.9.0",
+    "postgres-bytea": "^3.0.0",
+    "postman": "^0.2.0",
+    "swagger-ui-express": "^5.0.0",
+    "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.7.3",
+    "xmlhttprequest": "^1.8.0"
+  }
+}

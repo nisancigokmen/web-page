@@ -1,0 +1,2321 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is Yebea web app server. You can find out api logic in this document.",
+    "version": "1.0.0",
+    "title": "Yebea",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "info@yebea.net"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://www.mit.edu/~amini/LICENSE.md"
+    }
+  },
+  "host": "yebea.net:3000",
+  "basePath": "/v1",
+  "tags": [
+    {
+      "name": "users",
+      "description": "Operations about users"
+    },
+    {
+      "name": "admin",
+      "description": "Operations about admin"
+    },
+    {
+      "name": "basket",
+      "description": "Operations about basket"
+    },
+    {
+      "name": "partners",
+      "description": "Operations about partners"
+    },
+    {
+      "name": "bill",
+      "description": "Operations about bill"
+    },
+    {
+      "name": "cards",
+      "description": "Operations about cards"
+    },
+    {
+      "name": "discount",
+      "description": "Operations about discount"
+    },
+    {
+      "name": "discountapplied",
+      "description": "Operations about discountapplied"
+    },
+    {
+      "name": "orders",
+      "description": "Operations about orders"
+    },
+    {
+      "name": "partner_payment_info",
+      "description": "Operations about partner payment info"
+    },
+    {
+      "name": "pictures",
+      "description": "Operations about pictures"
+    },
+    {
+      "name": "products",
+      "description": "Operations about products"
+    },
+    {
+      "name": "workhours",
+      "description": "Operations about workhours"
+    },
+    {
+      "name": "submerchant",
+      "description": "Operations about submerchant"
+    }
+  ],
+  "schemes": ["https"],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["users"],
+        "summary": "Add a new users to the database",
+        "description": "",
+        "operationId": "createUser",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "users object that needs to be added to the database",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/users"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User added with ID: 0"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": ["users"],
+        "summary": "Finds user by id",
+        "description": "id value can be provided",
+        "operationId": "getUserById",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id values that need to be considered for filter",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/users"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      },
+      "put": {
+        "tags": ["users"],
+        "summary": "Finds user by id and updates its values",
+        "description": "id value can be provided",
+        "operationId": "updateUser",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id values that need to be considered for update",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "users object that needs to be added to the database",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/usersforupdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User updated with ID: 0"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["users"],
+        "summary": "Deletes a user",
+        "description": "",
+        "operationId": "deleteUser",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "users id to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted with ID: 0"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "users not found"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/check_user/{email}/{password}": {
+      "get": {
+        "tags": ["users"],
+        "summary": "Finds user by email and password",
+        "description": "email and password values can be provided",
+        "operationId": "checkUser",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "description": "email values that need to be considered for filter",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "password values that need to be considered for filter",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/users"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/check_user/{email}": {
+      "get": {
+        "tags": ["users"],
+        "summary": "Finds user by email",
+        "description": "email values can be provided",
+        "operationId": "getUserByEmail",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "description": "email values that need to be considered for filter",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/users"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/check_user/{phone}/{password}": {
+      "get": {
+        "tags": ["users"],
+        "summary": "Finds user by phone and password",
+        "description": "phone and password values can be provided",
+        "operationId": "checkUserPhone",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "phone",
+            "in": "query",
+            "description": "phone values that need to be considered for filter",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "password values that need to be considered for filter",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/users"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/check_user/{phone}": {
+      "get": {
+        "tags": ["users"],
+        "summary": "Finds user by phone",
+        "description": "phone values can be provided",
+        "operationId": "getUserByPhone",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "phone",
+            "in": "query",
+            "description": "phone values that need to be considered for filter",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/users"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/check_admin/{username}/{password}": {
+      "get": {
+        "tags": ["admin"],
+        "summary": "Finds admin by username and password",
+        "description": "username and password values can be provided",
+        "operationId": "checkAdmin",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "description": "username values that need to be considered for filter",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "password values that need to be considered for filter",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/admin"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/check_admin/{username}": {
+      "get": {
+        "tags": ["admin"],
+        "summary": "Finds admin by username",
+        "description": "username values can be provided",
+        "operationId": "getAdminByUsername",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "description": "username values that need to be considered for filter",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/admin"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/check_admin/{id}": {
+      "put": {
+        "tags": ["admin"],
+        "summary": "Finds admin by id",
+        "description": "id values can be provided",
+        "operationId": "updateAdmin",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id values that need to be considered for filter",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "users object that needs to be added to the database",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/adminforupdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/admin"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/basket": {
+      "post": {
+        "tags": ["basket"],
+        "summary": "Add a new basket to the database",
+        "description": "",
+        "operationId": "createBasket",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "baskets object that needs to be added to the database",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/basket"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Basket added with ID: 0"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/partners": {
+      "post": {
+        "tags": ["partners"],
+        "summary": "Add a new partners to the database",
+        "description": "",
+        "operationId": "createPartner",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "partners object that needs to be added to the database",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/partners"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Partner added with ID: 0"
+          },
+          "405": {
+            "description": "Invalid input"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/partners/{id}": {
+      "get": {
+        "tags": ["partners"],
+        "summary": "Finds partner by id",
+        "description": "id value can be provided",
+        "operationId": "getPartnerById",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id values that need to be considered for filter",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/partners"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["partners"],
+        "summary": "Deletes a partner",
+        "description": "",
+        "operationId": "deletePartner",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "partners id to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Partner deleted with ID: 0"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "partner not found"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/check_partner/{companyid}/{password}": {
+      "get": {
+        "tags": ["partners"],
+        "summary": "Finds partner by companyid and password",
+        "description": "companyid and password values can be provided",
+        "operationId": "checkPartner",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "companyid",
+            "in": "query",
+            "description": "companyid values that need to be considered for filter",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "password values that need to be considered for filter",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/partners"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/set_bill": {
+      "post": {
+        "tags": ["bill"],
+        "summary": "Creates bill",
+        "description": "",
+        "operationId": "setBillInfo",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id values that need to be considered for filter",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/bill"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      },
+      "put": {
+        "tags": ["bill"],
+        "summary": "Finds bill and updates its values",
+        "description": "id value can be provided",
+        "operationId": "updateBillInfo",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id values that need to be considered for update",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "bill object that needs to be added to the database",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/bill"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bill updated with ID: 0"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/get_bill/{id}": {
+      "get": {
+        "tags": ["bill"],
+        "summary": "Finds bill by id",
+        "description": "id value can be provided",
+        "operationId": "getBillInfo",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id values that need to be considered for filter",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/bill"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/card": {
+      "post": {
+        "tags": ["cards"],
+        "summary": "Creates card",
+        "description": "",
+        "operationId": "createCard",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/cards"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/get_cards/{id}": {
+      "get": {
+        "tags": ["cards"],
+        "summary": "Finds card by id",
+        "description": "id value can be provided",
+        "operationId": "getCardById",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id values that need to be considered for filter",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/cards"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/get_card/{cardnumber}/{userid}": {
+      "get": {
+        "tags": ["cards"],
+        "summary": "Finds card by cardnumber and userid",
+        "description": "cardnumber and userid values can be provided",
+        "operationId": "getCardInfo",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "cardnumber",
+            "in": "query",
+            "description": "cardnumber values that need to be considered for filter",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userid",
+            "in": "query",
+            "description": "userid values that need to be considered for filter",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/cards"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["cards"],
+        "summary": "Deletes a card by cardnumber and userid",
+        "description": "",
+        "operationId": "deleteCardInfo",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "cards id to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Card deleted with ID: 0"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "card not found"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/discount/{discountcode}": {
+      "get": {
+        "tags": ["discount"],
+        "summary": "Gets discount by getDiscounts",
+        "description": "",
+        "operationId": "getDiscounts",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "discountcode",
+            "in": "query",
+            "description": "discountcode values that need to be considered for filter",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/discount"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      },
+      "put": {
+        "tags": ["discount"],
+        "summary": "Finds discount and updates its values",
+        "description": "id value can be provided",
+        "operationId": "updateBillInfo",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "discountcode",
+            "in": "query",
+            "description": "discountcode values that need to be considered for update",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "discount object that needs to be added to the database",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/discount"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bill updated with ID: 0"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/last_discount": {
+      "get": {
+        "tags": ["discount"],
+        "summary": "Gets discount",
+        "description": "",
+        "operationId": "getLastDiscount",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "discountcode",
+            "in": "query",
+            "description": "discountcode values that need to be considered for filter",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/discount"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/discount_applied/{discountcode}/{userid}": {
+      "get": {
+        "tags": ["discountapplied"],
+        "summary": "Gets discount by getDiscounts and userid",
+        "description": "",
+        "operationId": "getDiscounts",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "discountcode",
+            "in": "query",
+            "description": "discountcode values that need to be considered for filter",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "userid",
+            "in": "query",
+            "description": "userid values that need to be considered for filter",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/discount"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      },
+      "post": {
+        "tags": ["discountapplied"],
+        "summary": "Finds discount and updates its values",
+        "description": "id value can be provided",
+        "operationId": "updateBillInfo",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "discountcode",
+            "in": "query",
+            "description": "discountcode values that need to be considered for update",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "userid",
+            "in": "query",
+            "description": "userid values that need to be considered for update",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "discount object that needs to be added to the database",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/discount"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bill updated with ID: 0"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/order": {
+      "post": {
+        "tags": ["orders"],
+        "summary": "Creates order",
+        "description": "",
+        "operationId": "createOrder",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/orders"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/orders/{id}": {
+      "delete": {
+        "tags": ["orders"],
+        "summary": "Deletes a order",
+        "description": "",
+        "operationId": "deleteOrder",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "orders id to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order deleted with ID: 0"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "order not found"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/get_partner_payment_info/{id}": {
+      "get": {
+        "tags": ["partner_payment_info"],
+        "summary": "Finds payment info by id",
+        "description": "id value can be provided",
+        "operationId": "getPartnerPaymentInfo",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id values that need to be considered for filter",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/partner_payment_info"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/image": {
+      "post": {
+        "tags": ["pictures"],
+        "summary": "Creates image",
+        "description": "",
+        "operationId": "createImage",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/pictures"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/image/{id}": {
+      "get": {
+        "tags": ["pictures"],
+        "summary": "Finds image by id",
+        "description": "id value can be provided",
+        "operationId": "getImageById",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id values that need to be considered for filter",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/pictures"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      },
+      "put": {
+        "tags": ["pictures"],
+        "summary": "Finds image by id and updates its values",
+        "description": "id value can be provided",
+        "operationId": "updateImage",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id values that need to be considered for update",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "users object that needs to be added to the database",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pictures"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Picture updated with ID: 0"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["pictures"],
+        "summary": "Deletes a image",
+        "description": "",
+        "operationId": "deleteImage",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "images id to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Image deleted with ID: 0"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "images not found"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/product": {
+      "post": {
+        "tags": ["products"],
+        "summary": "Creates product",
+        "description": "",
+        "operationId": "createProduct",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/products"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/product/{id}": {
+      "get": {
+        "tags": ["products"],
+        "summary": "Finds product by id",
+        "description": "id value can be provided",
+        "operationId": "getProductsByCompanyId",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id values that need to be considered for filter",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/products"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      },
+      "put": {
+        "tags": ["products"],
+        "summary": "Finds product by id and updates its values",
+        "description": "id value can be provided",
+        "operationId": "updateProduct",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id values that need to be considered for update",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "products object that needs to be added to the database",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/products"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Picture updated with ID: 0"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      },
+      "delete": {
+        "tags": ["products"],
+        "summary": "Deletes a product",
+        "description": "",
+        "operationId": "deleteProduct",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "product id to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Image deleted with ID: 0"
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "images not found"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/workhours": {
+      "post": {
+        "tags": ["workhours"],
+        "summary": "Creates workhour",
+        "description": "",
+        "operationId": "createWorkHours",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/workhours"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/workhours/{id}": {
+      "get": {
+        "tags": ["workhours"],
+        "summary": "Finds workhours by id",
+        "description": "id value can be provided",
+        "operationId": "getWorkhours",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id values that need to be considered for filter",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/workhours"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      },
+      "put": {
+        "tags": ["workhours"],
+        "summary": "Finds workhours by id and updates its values",
+        "description": "id value can be provided",
+        "operationId": "updateWorkHours",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "id values that need to be considered for update",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "workhours object that needs to be added to the database",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/workhours"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Picture updated with ID: 0"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    },
+    "/submerchant": {
+      "get": {
+        "tags": ["submerchant"],
+        "summary": "Gets all submerchants",
+        "description": "",
+        "operationId": "getSubmerchants",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/submerchant"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      },
+      "post": {
+        "tags": ["submerchant"],
+        "summary": "Creates submerchant",
+        "description": "",
+        "operationId": "setSubmerchants",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/submerchant"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "usersstore_auth": ["write:userss", "read:userss"]
+          }
+        ]
+      }
+    }
+  },
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    },
+    "usersstore_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "https://usersstore.swagger.io/oauth/authorize",
+      "flow": "implicit",
+      "scopes": {
+        "read:userss": "read your userss",
+        "write:userss": "modify userss in your account"
+      }
+    }
+  },
+  "definitions": {
+    "ApiResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "users": {
+      "type": "object",
+      "required": ["email", "password"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "fullname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "card": {
+          "type": "string"
+        },
+        "premium": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "users"
+      }
+    },
+    "usersforupdate": {
+      "type": "object",
+      "properties": {
+        "fullname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "users"
+      }
+    },
+    "admin": {
+      "type": "object",
+      "required": ["username", "password"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "admin"
+      }
+    },
+    "adminforupdate": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "admin"
+      }
+    },
+    "basket": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "orders": {
+          "type": "string"
+        },
+        "fullname": {
+          "type": "string"
+        },
+        "userid": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "totalprice": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        },
+        "basketstatus": {
+          "type": "string"
+        },
+        "basketdate": {
+          "type": "string"
+        },
+        "companyid": {
+          "type": "string"
+        },
+        "mail": {
+          "type": "string"
+        },
+        "paymentmethod": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "cardid": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "basket"
+      }
+    },
+    "partners": {
+      "type": "object",
+      "required": ["email", "password"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "companyid": {
+          "type": "string"
+        },
+        "companyname": {
+          "type": "string"
+        },
+        "companytype": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "address2": {
+          "type": "string"
+        },
+        "address3": {
+          "type": "string"
+        },
+        "address4": {
+          "type": "string"
+        },
+        "address5": {
+          "type": "string"
+        },
+        "address6": {
+          "type": "string"
+        },
+        "courier": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "surname": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "acceptance": {
+          "type": "string",
+          "description": "waiting, deleted, accepted, declined"
+        }
+      },
+      "xml": {
+        "name": "partners"
+      }
+    },
+    "bill": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "fullname": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "billaddress": {
+          "type": "string"
+        },
+        "userid": {
+          "type": "string",
+          "description": "foreignkey for user"
+        }
+      },
+      "xml": {
+        "name": "bill"
+      }
+    },
+    "cards": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "ownername": {
+          "type": "string"
+        },
+        "cardnumber": {
+          "type": "string"
+        },
+        "carddate": {
+          "type": "string"
+        },
+        "cardcvv": {
+          "type": "string"
+        },
+        "userid": {
+          "type": "string",
+          "description": "foreignkey for user"
+        },
+        "usertype": {
+          "type": "string"
+        },
+        "cardtype": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "cards"
+      }
+    },
+    "discount": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "discountcode": {
+          "type": "string"
+        },
+        "discountamount": {
+          "type": "string"
+        },
+        "discounttime": {
+          "type": "string"
+        },
+        "discountcompanyid": {
+          "type": "string"
+        },
+        "discountuserid": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "discount"
+      }
+    },
+    "discountapplied": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "discountcode": {
+          "type": "string"
+        },
+        "discountamount": {
+          "type": "string"
+        },
+        "discounttime": {
+          "type": "string"
+        },
+        "discountcompanyid": {
+          "type": "string"
+        },
+        "discountuserid": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "discountapplied"
+      }
+    },
+    "orders": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "userid": {
+          "type": "string",
+          "description": "foreignkey for user"
+        },
+        "address": {
+          "type": "string"
+        },
+        "paymentmethod": {
+          "type": "string"
+        },
+        "products": {
+          "type": "string"
+        },
+        "partnerid": {
+          "type": "string",
+          "description": "foreignkey for partner"
+        },
+        "orderstatus": {
+          "type": "string",
+          "description": "added, waiting, accepted, declined"
+        }
+      },
+      "xml": {
+        "name": "orders"
+      }
+    },
+    "partner_payment_info": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "partnerid": {
+          "type": "string"
+        },
+        "companyname": {
+          "type": "string"
+        },
+        "accountno": {
+          "type": "string"
+        },
+        "bankname": {
+          "type": "string"
+        },
+        "billaddress": {
+          "type": "string"
+        },
+        "iban": {
+          "type": "string"
+        },
+        "paymentdate": {
+          "type": "string"
+        },
+        "contact": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "partner_payment_info"
+      }
+    },
+    "pictures": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "picture": {
+          "type": "string"
+        },
+        "ownerid": {
+          "type": "string"
+        },
+        "ownertype": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "pictures"
+      }
+    },
+    "products": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "price": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "stocknumber": {
+          "type": "string"
+        },
+        "picture": {
+          "type": "string",
+          "description": "foreignkey for picture"
+        },
+        "partnerid": {
+          "type": "string",
+          "description": "foreignkey for partner"
+        },
+        "acceptance": {
+          "type": "string",
+          "description": "waiting, accepted, declined"
+        }
+      },
+      "xml": {
+        "name": "products"
+      }
+    },
+    "workhours": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "monday": {
+          "type": "string"
+        },
+        "tuesday": {
+          "type": "string"
+        },
+        "wednesday": {
+          "type": "string"
+        },
+        "thursday": {
+          "type": "string"
+        },
+        "friday": {
+          "type": "string"
+        },
+        "saturday": {
+          "type": "string"
+        },
+        "sunday": {
+          "type": "string"
+        },
+        "partnerid": {
+          "type": "string",
+          "description": "foreignkey for partner"
+        }
+      },
+      "xml": {
+        "name": "workhours"
+      }
+    },
+    "submerchant": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "partnerid": {
+          "type": "string",
+          "description": "foreignkey for partner"
+        },
+        "conversationid": {
+          "type": "string"
+        },
+        "submerchantkey": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "submerchant"
+      }
+    },
+    "phones": {
+      "type": "object",
+      "description": "never used",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "phonenumber": {
+          "type": "string"
+        },
+        "ownerid": {
+          "type": "string"
+        },
+        "ownertype": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "phones"
+      }
+    },
+    "addresses": {
+      "type": "object",
+      "description": "never used",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "city": {
+          "type": "string"
+        },
+        "town": {
+          "type": "string"
+        },
+        "neigborhood": {
+          "type": "string"
+        },
+        "apartment": {
+          "type": "string"
+        },
+        "floor": {
+          "type": "string"
+        },
+        "no": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "ownerid": {
+          "type": "string"
+        },
+        "ownertype": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "addresses"
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}

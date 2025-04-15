@@ -1,0 +1,560 @@
+/* General Styles */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Announcement Bar */
+.announcement-bar {
+  background-color: #FFF;
+  color: #ffffff;
+  text-align: center;
+  padding: 10px 0;
+  overflow: hidden;
+}
+
+.announcement-slider {
+  display: flex;
+  animation: slide 15s infinite;
+}
+
+.announcement-slider p {
+  margin: 0;
+  flex: 0 0 100%;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0%);
+  }
+  33% {
+    transform: translateX(-100%);
+  }
+  66% {
+    transform: translateX(-200%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px;
+  background-color: #FFF;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar input {
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  margin-right: 5px;
+}
+
+.search-bar button {
+  background-color: #f8cca2;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.logo img {
+  height: 50px;
+}
+
+.icons {
+  display: flex;
+  gap: 15px;
+}
+
+.icons a {
+  color: #ffffff;
+  font-size: 20px;
+}
+
+.icons a:hover {
+  color: #f8cca2;
+}
+.loginHeader i {
+  font-size: 24px; /* Adjust size as needed */
+  color: #ffffff; /* Ensure icons are visible */
+}
+
+.registerHeader i {
+  font-size: 24px; /* Adjust size as needed */
+  color: #ffffff; /* Ensure icons are visible */
+}
+
+
+
+#loginHeader{
+  background-color: #F7931A;
+  font-size: 16px;
+  width: 100%;
+  height: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  color: #fff;
+  border: none;
+  border-radius: 6px;  font-family: Inter-Medium;
+}
+
+#loginHeader:hover{
+  background-color: #ffa12f;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+#registerHeader{
+  background-color: #F7931A;
+  font-size: 16px;
+  width: 100%;
+  height: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  color: #fff;
+  border: none;
+  border-radius: 6px;  font-family: Inter-Medium;
+}
+
+#registerHeader:hover{
+  background-color: #ffa12f;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+@font-face {
+  font-family: Inter-Medium;
+  src: url("/assets/fonts/Inter-Medium.ttf");
+}
+
+
+
+@media only screen and (max-width: 960px) {
+  #loginHeader{
+    display: none;
+  }
+  
+  #registerHeader{
+    background-color: #F7931A;
+    font-size: 16px;
+    width: 100%;
+    height: auto;
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-top: 8px;
+
+    padding-bottom: 8px;
+    color: #fff;
+    border: none;
+    border-radius: 6px;  font-family: Inter-Medium;
+  }
+
+  
+}h1 {
+  font-weight: 700;
+  font-size: 6rem;
+  letter-spacing: 0.2rem;
+  margin: 0;
+}
+
+@media only screen and (max-width: 1000px) {
+  h1 {
+    font-size: 4rem;
+  }
+}
+
+.muted-text {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.visible-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.visible-text>span {
+  opacity: 0;
+  display: inline-block;
+}
+
+.banner {
+  background-color: #FF1744;
+  color: #ffffff;
+  padding: 1rem 0;
+  text-align: center;
+  width: 100%;
+  position: relative;
+  transform-origin: left top;
+}
+
+.footer {
+  justify-content: center;
+  display: flex;
+  padding: 0.8rem 1rem;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer > * {
+  margin: 0 0.4rem;
+}
+
+.footer > a {
+  color: #FF3C38;
+}
+
+/*--------------------SON DAKİKA HABERLER--------------------*/
+.inspiration-section {
+  width: 80%;
+  height: auto;
+  margin: 10px auto;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  font-size: 36px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #000;
+  padding-bottom: 10px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Tetap 3 kolom */
+  gap: 20px;
+}
+
+.article {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 15px;
+  text-align: justify;
+  transition: transform 0.2s;
+}
+
+.article:hover {
+  transform: scale(1.02); /* Sedikit efek hover */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.image-container {
+  position: relative;
+  width: 100%;
+  padding-top: 75%; /* 4:3 aspect ratio */
+  overflow: hidden;
+  background-color: #f0f0f0; /* Warna latar default */
+}
+
+.image-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Isi kotak tanpa distorsi */
+}
+
+.article-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limit to 3 lines */
+  -webkit-box-orient: vertical;
+  -webkit-hyphens: auto; /* Menambahkan pemecahan kata otomatis di WebKit */
+  -moz-hyphens: auto; /* Menambahkan pemecahan kata otomatis di Firefox */
+  hyphens: auto;
+  overflow: hidden;
+  text-align: justfiy;
+  text-overflow: ellipsis;
+  font-size: 16px; /* Ukuran teks khas koran */
+  margin: 10px 0;
+  line-height: 1.3;
+  font-weight: bold;
+}
+
+.article-date {
+  font-size: 12px; /* Ukuran kecil untuk tanggal */
+  color: #888;
+  font-style: italic;
+  padding-top: 5px;
+  margin-bottom: 0px;
+}
+
+.view-all-btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  text-align: center;
+  transition: background 0.3s;
+  border-radius: 4px;
+}
+
+.view-all-btn:hover {
+  background: #444;
+}
+
+/* Responsivitas */
+@media screen and (max-width: 768px) {
+  #partnerBtn{
+    display: block !important;
+  }
+  #partnerBtn img{
+  margin-top: 64px;
+    width: 100% !important;
+    height: 210px !important;
+  margin-bottom: 0px !important;
+  }
+
+  .wrap {
+ 
+    max-width: 600px !important;
+    text-align: center;
+  
+  }
+
+  .tg-text{
+    font-size: 18px !important;
+  }
+
+  .inspiration-section {
+    width: 100% !important;
+  }
+  .article {
+    padding:4px; 
+  }
+  .article-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 16px; 
+  text-align: justify;
+  line-height: 1.2;
+  }
+  .article-date {
+    font-size: 10px; 
+  }
+  .view-all-btn {
+    width: 100% !important; 
+    padding: 8px !important; 
+    font-size: 16px !important;
+    color: #FFF !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .section-title {
+    font-size: 100%;
+  }
+  
+  .articles-grid {
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 5px;
+    
+  }
+  .wrap {
+    margin:15px auto 0 !important;
+    max-width: 80%;
+    text-align: center;
+  }
+  .article-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; 
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size:13px !important; 
+  text-align: justify;
+  color: #181818 !important;
+  line-height: 1.2 !important;
+  margin-bottom: 0px;
+
+  }
+    .article-date {
+    font-size: 7px; 
+    margin-bottom: 0px;  
+  }
+    .view-all-btn {
+    width: 10%; 
+    padding: 7px; 
+    font-size: 10%;
+  }
+  
+}
+
+#partnerBtn{
+  display: none ;
+}
+
+
+
+
+/*--------------------ANALİZ--------------------*/
+.wrap {
+  margin:50px auto 0;
+  max-width: 80%;
+  text-align: center;
+}
+
+.telegram {
+margin-bottom: 15px;
+}
+
+.telegram:hover{
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.telegram a {
+display: block;
+background-color: #039be5;
+border-radius: 7px;
+overflow: hidden;
+position: relative;
+text-decoration: none;
+}
+.telegram .tg-icon {
+float: left;
+width: 60px;
+height: 60px;
+background-size: cover;
+background-image: url("https://qayoutube.com/telegram.svg");
+position: relative;
+z-index: 10;
+}
+.telegram .tg-text {
+overflow: hidden;
+color: #fff;
+font-size: 22px;
+line-height: 28px;
+font-weight: bold;
+padding: 15px 10px;
+position: relative;
+z-index: 10;
+text-shadow: 1px 1px 1px #2580dd;
+}
+
+.x1,
+.x2,
+.x3,
+.x4,
+.x5 {
+position: absolute;
+display: block;
+}
+@-webkit-keyframes animateCloud {
+0% {
+  margin-left: -100px;
+}
+100% {
+  margin-left: 100%;
+}
+}
+
+@-moz-keyframes animateCloud {
+0% {
+  margin-left: -100px;
+}
+100% {
+  margin-left: 100%;
+}
+}
+
+@keyframes animateCloud {
+0% {
+  margin-left: -100px;
+}
+100% {
+  margin-left: 100%;
+}
+}
+
+/* ANIMATIONS */
+
+.x1 {
+-webkit-animation: animateCloud 35s linear infinite;
+-moz-animation: animateCloud 35s linear infinite;
+animation: animateCloud 35s linear infinite;
+
+-webkit-transform: scale(0.7);
+-moz-transform: scale(0.7);
+transform: scale(0.7);
+top: 10px;
+}
+
+.x2 {
+-webkit-animation: animateCloud 20s linear infinite;
+-moz-animation: animateCloud 20s linear infinite;
+animation: animateCloud 20s linear infinite;
+
+-webkit-transform: scale(0.4);
+-moz-transform: scale(0.4);
+transform: scale(0.4);
+top: 20px;
+}
+
+.x3 {
+-webkit-animation: animateCloud 30s linear infinite;
+-moz-animation: animateCloud 30s linear infinite;
+animation: animateCloud 30s linear infinite;
+
+-webkit-transform: scale(0.6);
+-moz-transform: scale(0.6);
+transform: scale(0.6);
+top: 25px;
+}
+
+.x4 {
+-webkit-animation: animateCloud 18s linear infinite;
+-moz-animation: animateCloud 18s linear infinite;
+animation: animateCloud 18s linear infinite;
+
+-webkit-transform: scale(0.5);
+-moz-transform: scale(0.5);
+transform: scale(0.5);
+top: 10px;
+}
+
+.x5 {
+-webkit-animation: animateCloud 25s linear infinite;
+-moz-animation: animateCloud 25s linear infinite;
+animation: animateCloud 25s linear infinite;
+
+-webkit-transform: scale(0.55);
+-moz-transform: scale(0.55);
+transform: scale(0.55);
+top: 30px;
+}
+
+
+
+
+/*--------------------PARA DÖNÜŞTÜRCÜ--------------------*/
+
+
+
+
+
+/*--------------------FOOTER--------------------*/
