@@ -132,7 +132,7 @@ img.onload = () => {
 
 // Optimize animations
 let lastFrameTime = 0;
-const frameRate = 120; // 60 FPS limit
+const frameRate = 60; // 60 FPS limit
 
 const optimizedAnimation = (timestamp) => {
   if (timestamp - lastFrameTime >= 1000 / frameRate) {
