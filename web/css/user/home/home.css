@@ -1357,8 +1357,8 @@ height: 100vh;
   
   .ticker-news > * {
     display: inline-block;
-    -webkit-animation: news 30s infinite linear;
-            animation: news 30s infinite linear;
+    -webkit-animation: news 50s infinite linear;
+            animation: news 50s infinite linear;
   }
   
   @-webkit-keyframes news {
